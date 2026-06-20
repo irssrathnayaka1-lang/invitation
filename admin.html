@@ -6,6 +6,7 @@
   <title>Admin Panel — RNCoE Invitation System</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=Inter:wght@300;400;500&family=Noto+Sans+Sinhala:wght@300;400&display=swap" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lz-string/1.4.4/lz-string.min.js"></script>
   <style>
     :root {
       --gold: #C9A84C;
@@ -73,10 +74,7 @@
       letter-spacing: 0.05em;
     }
 
-    .field {
-      margin-bottom: 16px;
-      text-align: left;
-    }
+    .field { margin-bottom: 16px; text-align: left; }
 
     .field label {
       display: block;
@@ -100,14 +98,8 @@
       transition: border-color 0.2s;
     }
 
-    .field input:focus, .field textarea:focus {
-      border-color: var(--gold);
-    }
-
-    .field textarea {
-      resize: vertical;
-      min-height: 80px;
-    }
+    .field input:focus, .field textarea:focus { border-color: var(--gold); }
+    .field textarea { resize: vertical; min-height: 80px; }
 
     .btn {
       width: 100%;
@@ -134,11 +126,7 @@
     }
     .btn-outline:hover { background: rgba(201,168,76,0.08); }
 
-    .btn-sm {
-      width: auto;
-      padding: 8px 16px;
-      font-size: 10px;
-    }
+    .btn-sm { width: auto; padding: 8px 16px; font-size: 10px; }
 
     .btn-danger {
       background: transparent;
@@ -259,116 +247,53 @@
       display: none;
     }
 
-    .logo-upload-icon {
-      font-size: 32px;
-      margin-bottom: 12px;
-      color: var(--gold);
-    }
+    .logo-upload-icon { font-size: 32px; margin-bottom: 12px; color: var(--gold); }
+    .logo-upload-text { font-size: 12px; color: var(--text-muted); }
 
-    .logo-upload-text {
-      font-size: 12px;
-      color: var(--text-muted);
-    }
-
-    .lecturer-table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 13px;
-    }
-
+    .lecturer-table { width: 100%; border-collapse: collapse; font-size: 13px; }
     .lecturer-table th {
-      text-align: left;
-      padding: 10px 12px;
-      font-size: 9px;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--gold);
-      border-bottom: 1px solid var(--border);
-      font-weight: 400;
+      text-align: left; padding: 10px 12px; font-size: 9px;
+      letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--gold); border-bottom: 1px solid var(--border); font-weight: 400;
     }
-
     .lecturer-table td {
-      padding: 14px 12px;
-      border-bottom: 1px solid rgba(201,168,76,0.08);
-      vertical-align: middle;
-      color: var(--text);
+      padding: 14px 12px; border-bottom: 1px solid rgba(201,168,76,0.08);
+      vertical-align: middle; color: var(--text);
     }
-
     .lecturer-table tr:last-child td { border-bottom: none; }
 
     .link-cell {
-      font-family: monospace;
-      font-size: 11px;
-      color: var(--gold);
-      word-break: break-all;
+      font-family: monospace; font-size: 11px;
+      color: var(--gold); word-break: break-all;
     }
 
     .link-copy-btn {
-      background: none;
-      border: none;
-      color: var(--gold);
-      cursor: pointer;
-      font-size: 14px;
-      padding: 4px;
-      opacity: 0.7;
-      transition: opacity 0.2s;
+      background: none; border: none; color: var(--gold);
+      cursor: pointer; font-size: 14px; padding: 4px;
+      opacity: 0.7; transition: opacity 0.2s;
     }
     .link-copy-btn:hover { opacity: 1; }
 
-    .empty-state {
-      text-align: center;
-      padding: 40px;
-      color: var(--text-muted);
-      font-size: 13px;
-    }
+    .empty-state { text-align: center; padding: 40px; color: var(--text-muted); font-size: 13px; }
 
     .add-form {
-      background: var(--surface2);
-      border: 1px solid var(--border);
-      padding: 24px;
-      margin-bottom: 24px;
-      display: none;
+      background: var(--surface2); border: 1px solid var(--border);
+      padding: 24px; margin-bottom: 24px; display: none;
     }
-
     .add-form.open { display: block; }
-
-    .form-row {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 16px;
-    }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
 
     .toast {
-      position: fixed;
-      bottom: 40px;
-      right: 32px;
-      background: var(--surface2);
-      border: 1px solid var(--gold);
-      color: var(--text);
-      padding: 16px 24px;
-      font-size: 13px;
-      z-index: 999;
-      transform: translateY(20px);
-      opacity: 0;
-      transition: all 0.3s;
-      pointer-events: none;
+      position: fixed; bottom: 40px; right: 32px;
+      background: var(--surface2); border: 1px solid var(--gold);
+      color: var(--text); padding: 16px 24px; font-size: 13px;
+      z-index: 999; transform: translateY(20px); opacity: 0;
+      transition: all 0.3s; pointer-events: none;
     }
-
     .toast.show { transform: translateY(0); opacity: 1; }
 
-    .divider {
-      height: 1px;
-      background: var(--border);
-      margin: 24px 0;
-    }
-
-    .preview-link {
-      display: inline-block;
-      font-size: 11px;
-      color: var(--gold);
-      text-decoration: none;
-      letter-spacing: 0.1em;
-    }
+    .divider { height: 1px; background: var(--border); margin: 24px 0; }
+    .preview-link { display: inline-block; font-size: 11px; color: var(--gold); text-decoration: none; letter-spacing: 0.1em; }
     .preview-link:hover { text-decoration: underline; }
 
     ::-webkit-scrollbar { width: 4px; }
@@ -376,15 +301,15 @@
     ::-webkit-scrollbar-thumb { background: var(--border); }
 
     .dev-footer {
-      position: fixed;
-      bottom: 10px;
-      width: 100%;
-      text-align: center;
-      font-size: 11px;
-      color: var(--text-muted);
-      font-family: monospace;
-      z-index: 1000;
-      pointer-events: none;
+      position: fixed; bottom: 10px; width: 100%; text-align: center; font-size: 11px;
+      color: var(--text-muted); font-family: monospace; z-index: 1000; pointer-events: none;
+    }
+
+    .output-console {
+      width: 100%; height: 250px; background: #080808; color: var(--gold-light);
+      font-family: 'Courier New', Courier, monospace; font-size: 13px;
+      padding: 16px; border-radius: 4px; border: 1px solid var(--border);
+      resize: vertical; line-height: 1.6;
     }
 
     @media (max-width: 768px) {
@@ -524,6 +449,20 @@
       <div id="lecturer-list"></div>
     </div>
 
+    <div class="panel panel-full" id="bulk-output-box" style="display: none;">
+      <div class="panel-header">
+        <div class="panel-title">
+          <small>Section 04</small>
+          Generated Links & Messages
+        </div>
+        <button class="btn btn-sm btn-outline" onclick="copyBulkText()">Copy All (සියල්ල කොපි කරන්න)</button>
+      </div>
+      <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 16px;">
+        පහත පෙළ සම්පූර්ණයෙන්ම කොපි කර ඔබගේ සටහන් පොතකට දමාගෙන එක් එක් අයෙකුට වෙන වෙනම යවන්න.
+      </p>
+      <textarea id="output-text" class="output-console" readonly></textarea>
+    </div>
+
   </div>
 </div>
 
@@ -532,11 +471,9 @@
 <div class="dev-footer">Designed & Developed by Sathira S.Rathnayake</div>
 
 <script>
-  // ── CONFIG ──────────────────────────────────────────────
   const ADMIN_PASSWORD = "RNCoE2224"; 
   const SITE_URL = window.location.origin + window.location.pathname.replace('admin.html','') + 'index.html';
 
-  // ── AUTH ─────────────────────────────────────────────────
   function doLogin() {
     const pw = document.getElementById('password-input').value;
     if (pw === ADMIN_PASSWORD) {
@@ -554,7 +491,6 @@
     document.getElementById('password-input').value = '';
   }
 
-  // ── DATA ──────────────────────────────────────────────────
   function getData() {
     return JSON.parse(localStorage.getItem('inviteSystemDataRNCoE') || '{"event":{},"lecturers":[],"logo":"","badge":""}');
   }
@@ -595,6 +531,7 @@
     };
     setData(d);
     toast('Event details saved.');
+    generateAllLinks(d.lecturers);
   }
 
   function handleLogoUpload(e) {
@@ -606,6 +543,7 @@
       document.getElementById('logo-preview').style.display = 'block';
       document.getElementById('logo-placeholder').style.display = 'none';
       const d = getData(); d.logo = ev.target.result; setData(d);
+      generateAllLinks(d.lecturers);
     };
     reader.readAsDataURL(file);
   }
@@ -619,6 +557,7 @@
       document.getElementById('badge-preview').style.display = 'block';
       document.getElementById('badge-placeholder').style.display = 'none';
       const d = getData(); d.badge = ev.target.result; setData(d);
+      generateAllLinks(d.lecturers);
     };
     reader.readAsDataURL(file);
   }
@@ -657,7 +596,7 @@
     toast('Lecturer removed.');
   }
 
-  // Safe Base64 Encoding for Sinhala support
+  // LZString Compression to drastically shorten the URL
   function buildLink(lecturer) {
     const d = getData();
     const payload = {
@@ -672,14 +611,14 @@
       badge: d.badge || '',
     };
     const jsonStr = JSON.stringify(payload);
-    const encoded = btoa(encodeURIComponent(jsonStr).replace(/%([0-9A-F]{2})/g, function(match, p1) {
-        return String.fromCharCode('0x' + p1);
-    }));
+    const encoded = LZString.compressToEncodedURIComponent(jsonStr);
     return `${SITE_URL}?d=${encoded}`;
   }
 
   function renderLecturers(lecturers) {
     const el = document.getElementById('lecturer-list');
+    generateAllLinks(lecturers);
+
     if (!lecturers.length) {
       el.innerHTML = '<div class="empty-state">No lecturers added yet. Click "+ Add Lecturer" to begin.</div>';
       return;
@@ -722,8 +661,40 @@
     `;
   }
 
+  // Generate Bulk WhatsApp Messages
+  function generateAllLinks(lecturers) {
+    if(!lecturers || lecturers.length === 0) {
+        document.getElementById('bulk-output-box').style.display = 'none';
+        return;
+    }
+
+    let outputText = "";
+    const d = getData();
+
+    lecturers.forEach(item => {
+        const link = buildLink(item);
+        outputText += `=========================================\n`;
+        outputText += `To: ${item.name} (${item.post})\n`;
+        outputText += `=========================================\n`;
+        outputText += `ගෞරවනීය ${item.name} තුමනි/තුමියනි,\n\n`;
+        outputText += `රුවන්පුර ජාතික අධ්‍යාපන විද්‍යාපීඨයේ ${d.event.name || "සමූහ ඡායාරූපය"} සඳහා ඔබට කෙරෙන ගෞරවනීය ආරාධනාවයි.\n\n`;
+        outputText += `ඔබ වෙනුවෙන්ම වෙන්වූ නිල ඩිජිටල් ආරාධනා පත්‍රය විවෘත කිරීමට පහත සබැඳිය (Link) ක්ලික් කරන්න:\n`;
+        outputText += `${link}\n\n\n`;
+    });
+
+    document.getElementById('bulk-output-box').style.display = 'block';
+    document.getElementById('output-text').value = outputText;
+  }
+
   function copyLink(link) {
     navigator.clipboard.writeText(link).then(() => toast('Link copied to clipboard!'));
+  }
+
+  function copyBulkText() {
+    const txt = document.getElementById('output-text');
+    txt.select();
+    document.execCommand('copy');
+    toast("All messages copied successfully!");
   }
 
   function exportData() {
@@ -759,6 +730,14 @@
     el.classList.add('show');
     setTimeout(() => el.classList.remove('show'), 2800);
   }
+
+  // Live Event Listeners for real-time output updates
+  ['event-name', 'event-date', 'event-time', 'event-venue', 'event-note'].forEach(id => {
+      document.getElementById(id).addEventListener('input', () => {
+         const d = getData();
+         if(d.lecturers && d.lecturers.length > 0) generateAllLinks(d.lecturers);
+      });
+  });
 </script>
 </body>
 </html>

@@ -6,6 +6,7 @@
   <title>You're Invited - RNCoE</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Inter:wght@300;400;500&family=Noto+Sans+Sinhala:wght@300;400;500&display=swap" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lz-string/1.4.4/lz-string.min.js"></script>
   <style>
     :root {
       --gold: #C9A84C;
@@ -474,10 +475,8 @@
 
     let payload;
     try {
-      // Safe Sinhala Decoding
-      const jsonString = decodeURIComponent(atob(encoded).split('').map(function(c) {
-          return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
-      }).join(''));
+      // LZString Decompression
+      const jsonString = LZString.decompressFromEncodedURIComponent(encoded);
       payload = JSON.parse(jsonString);
     } catch (e) {
       console.error(e);
